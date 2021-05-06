@@ -1,68 +1,95 @@
 package theFightClub_tamaGolem.unibs.it;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 public class Equilibrio {
 
-    //un elemento Stringa vincerà su un altro elemento stringa con potenza integer
-    HashMap<String, HashMap<String, Integer>> Universo = new HashMap<>();
-    HashMap<String, Integer> Deboli = new HashMap<>();
-    Scanner scanner = new Scanner(System.in);
-    Random rand = new Random();
-
-    public void AggiungoElemento() {
-        System.out.println("Quanti elementi esistono nel vostro Universo?");
-        int elementi = scanner.nextInt();
-        System.out.println("Qual è la potenza massima nel tuo universo?");
-        int potenza = scanner.nextInt();
-        Deboli = Collegamenti(elementi, potenza);
-        for (int i = 0; i < elementi; i++) {
-            Universo.put("i+1", Deboli);
-        }
-
-    }
+    private ArrayList<Elemento> elementi = new ArrayList<>();
+    private static Random rand = new Random();
 
 
-    public void ResetUniverso() {
-        System.out.println("Vuoi iniziare un'altra partita?");
-        int si = 0;
-        while(si!=9) {
-            System.out.println("Premi 9 per iniziare una nuova partita!");
-            si = scanner.nextInt();
-            if(si==0){
-                Universo.clear();
-            }
-        }
-    }
+    public static int[][] generaEquilibrio(int nr_elementi, int potenza_max) {
 
+        int[][] matEquilibrio = new int[nr_elementi][nr_elementi];
+        int somma = 0;
+        int i, j, k;
 
-    public HashMap<String, Integer> Collegamenti(int elementi, int potenza) {
-        /*Genero un intero random tra il numero di elementi per decidere rispetto a quanti elementi
-        un determinato elemento è forte;
-         */
-        int pot;
-        int[][] matrice_adj = null;
-        int pot_restante = 0;
+        //uso restart per rigenerare la matrice ogni volta giusta
+        boolean restart = false;
 
-        for (int i = 0; i < elementi; i++) {
-            for (int j = 0; j < elementi; j++) {
-                pot = rand.nextInt() % potenza; //genero una potenza totale che può avere un elemento che andrà divisa sugli altri
-                if (i == j)
-                    matrice_adj[i][j] = 0; // perchè un elemento contro se stesso non è ne forte ne debole;
-                    Deboli.put("i+1", 0);
-                else {
-                    while (pot_restante != 0) {
-                        matrice_adj[i][j] = rand.nextInt() % pot;
-                        matrice_adj[j][i] = 0; //perchè se è forte in una direzione allora nel senso inverso è 0;
-                        pot_restante = pot - matrice_adj[i][j];
-                        Deboli.put("i+1", matrice_adj[i][j]);
+        do {
+            restart = false;
+            for (i = 0; i < nr_elementi; i++) {
+                do {
+                    for (j = i; j < nr_elementi; j++) {
+                    if (i == j) {
+                        /*Sulla diagonale dovro' avere solo zeri, perchè un elemento non fa danni su se stesso*/
+                        matEquilibrio[i][j] = 0;
+                            if (i == nr_elementi - 1)
+                                somma = 1;
+                                }
+                            else {
+                                /*se sono arrivata all'ultimo elemento sulla riga, non gli assegno un random
+                                ma gli do l'opposto della somma dei termini fino a nr_elementi-1;
+                                 */
+                                if (j == nr_elementi - 1) {
+                                    /*
+                                    con questo ciclo calcolo la somma sulla riga escluso l'ultimo elemento
+                                     */
+                                    for (k = 0; k < nr_elementi; k++) {
+                                        somma = somma + matEquilibrio[i][k];
+                                        }
+                                    /*
+                                    alla posizione nella triangolare inferiore assegno l'opposto della somma;
+                                     */
+                                        matEquilibrio[i][j] = -somma;
+                                        matEquilibrio[j][i] = somma;
+                                        if (i == nr_elementi - 1) {
+                                            if((somma == 0 || Math.abs(somma) > potenza_max))
+                                                restart = true;
+                                             }
+                                        }
+                                    else {
+                                         //per evitare di avere zeri oltre che sulla diagonale
+                                        do {
+                                            matEquilibrio[i][j] = estraggoIntero(-potenza_max, potenza_max);
+                                            matEquilibrio[j][i] = -matEquilibrio[i][j];
+                                        }
+                                        while (matEquilibrio[i][j] == 0);
+                                    }
+                                }
+                            }
+                            if (restart) break;
+                        }
+                        // non devo mai superare la vita del tamagolem
+                        while ((Math.abs(somma) > potenza_max || somma == 0));
+                        somma = 0;
                     }
                 }
+            while (restart);
+
+        return matEquilibrio;
+            }
+
+
+
+        public static int estraggoIntero ( int minimo, int massimo){
+            int range = massimo + 1 - minimo;
+            int intCasuale = rand.nextInt(range);
+            return intCasuale + minimo;
+        }
+
+        //solo per la verifica della funzionalità della matrice di equilibrio
+        public void stampaValori ( int n, int[][] mat){
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    System.out.print(mat[i][j] + "    ");
+                }
+                System.out.print("\n");
             }
         }
-
-        return Deboli;
-        }
+    }
 
 
-}
+
