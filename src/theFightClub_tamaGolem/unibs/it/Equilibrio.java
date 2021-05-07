@@ -128,8 +128,8 @@ public class Equilibrio {
             }*/
 
         for (int i = 0; i < elementi.size(); i++) {
-            System.out.print(elementi.get(i).getIndice() + "   ");
-            elementi.get(i).getDominaSu().forEach((key, value) -> System.out.println(key + ":" + value));
+            System.out.print("L'elemento " +  elementi.get(i).getIndice() + "   ");
+            elementi.get(i).getDominaSu().forEach((key, value) -> System.out.println("domina sull'elemento " + key + " con potenza:" + value));
 
 
         }
