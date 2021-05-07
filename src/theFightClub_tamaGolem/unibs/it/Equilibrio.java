@@ -1,5 +1,6 @@
 package theFightClub_tamaGolem.unibs.it;
 
+import javax.swing.*;
 import java.util.*;
 
 public class Equilibrio {
@@ -7,23 +8,27 @@ public class Equilibrio {
 
     private static Random rand = new Random();
 
-    public static void nomiElementi() {
-        TreeMap<Integer, String> nomiElementi = new TreeMap<Integer, String>();
-        nomiElementi.put(1, "Scythe of Vyse");
-        nomiElementi.put(2, "Blade Mail");
-        nomiElementi.put(3, "Soul Booster");
-        nomiElementi.put(4, "Black King Bar");
-        nomiElementi.put(5, "Linke's Sphere");
-        nomiElementi.put(6, "Assault Cuirass");
-        nomiElementi.put(7, "Skull Basher");
-        nomiElementi.put(8, "Ethereal Blade");
-        nomiElementi.put(9, "Monkey King Bar");
-        nomiElementi.put(10, "Divine Rapier");
+    public static int quantiElementi() {
+        Scanner scan = new Scanner(System.in);
+        int potenza_max=0;
+        System.out.println("Scegli il livello della partita: \n" + " 1 - EASY\n" + "2 - INTERMEDIO\n" + "3 - HARD\n");
+        int scelta = scan.nextInt();
+        switch (scelta) {
+            case 1: potenza_max = Math.abs(estraggoIntero(3, 5));
+            break;
+            case 2: potenza_max = Math.abs(estraggoIntero(6, 8));
+            break;
+            case 3: potenza_max = Math.abs(estraggoIntero(9, 10));
+            default:
+                System.out.println("Scegli uno dei livelli disponibili!");
+        }
+        return potenza_max;
     }
 
 
     public static int[][] generaEquilibrio(int nr_elementi, int potenza_max) {
 
+        potenza_max = quantiElementi();
         int[][] matEquilibrio = new int[nr_elementi][nr_elementi];
         int somma = 0;
         int i, j, k;

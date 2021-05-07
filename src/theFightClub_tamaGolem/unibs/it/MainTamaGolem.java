@@ -25,7 +25,7 @@ public class MainTamaGolem {
 
         int scelta = input.nextInt();*/
         /*switch (scelta){
-            case 1: equilibrio.AggiungoElemento(); //inizia la partita chiedo quanti elementi ha l'universo e li aggiungo;
+            case 1: equilibrio.generaEquilibrio(); //inizia la partita chiedo quanti elementi ha l'universo e li aggiungo;
             case 10: equilibrio.ResetUniverso();
         }*/
 
