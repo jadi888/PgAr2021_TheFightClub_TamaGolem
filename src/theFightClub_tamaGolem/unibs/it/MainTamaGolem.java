@@ -12,7 +12,10 @@ public class MainTamaGolem {
       //  Equilibrio.generaEquilibrio(5, 10);
        // Scanner input = new Scanner(System.in);
 
-       equilibrio.stampaValori(5, equilibrio.generaEquilibrio(5,10));
+        var x = Equilibrio.generaEquilibrio(5,10);
+
+       equilibrio.stampaValori(5, x);
+       equilibrio.collegamenti(x, 5);
        equilibrio.stampaTabella();
 
 

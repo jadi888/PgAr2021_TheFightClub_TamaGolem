@@ -6,7 +6,7 @@ import java.util.TreeMap;
 public class Elemento {
 
     private int Indice;
-    private static HashMap<Integer, Integer> dominaSu = new HashMap<>();
+    private HashMap<Integer, Integer> dominaSu = new HashMap<>();
 
 
 
@@ -19,15 +19,19 @@ public class Elemento {
     public void setIndice(int Indice){
         this.Indice = Indice;
     }
-    public void setDominaSu(HashMap dominaSu){
+    public void setDominaSu(HashMap<Integer, Integer> dominaSu){
         this.dominaSu=dominaSu;
+    }
+
+    public void addElemento(int indice1, int potenza){
+        this.dominaSu.put(indice1, potenza);
     }
 
     public int getIndice(){
         return Indice;
     }
 
-    public HashMap getDominaSu(){
+    public HashMap<Integer, Integer> getDominaSu(){
         return dominaSu;
     }
 }
