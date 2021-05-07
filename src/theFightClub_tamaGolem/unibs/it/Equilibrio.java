@@ -10,25 +10,25 @@ public class Equilibrio {
 
     public static int quantiElementi() {
         Scanner scan = new Scanner(System.in);
-        int potenza_max=0;
+        int nr_elementi=0;
         System.out.println("Scegli il livello della partita: \n" + " 1 - EASY\n" + "2 - INTERMEDIO\n" + "3 - HARD\n");
         int scelta = scan.nextInt();
         switch (scelta) {
-            case 1: potenza_max = Math.abs(estraggoIntero(3, 5));
+            case 1: nr_elementi = Math.abs(estraggoIntero(3, 5));
             break;
-            case 2: potenza_max = Math.abs(estraggoIntero(6, 8));
+            case 2: nr_elementi = Math.abs(estraggoIntero(6, 8));
             break;
-            case 3: potenza_max = Math.abs(estraggoIntero(9, 10));
+            case 3: nr_elementi = Math.abs(estraggoIntero(9, 10));
             default:
                 System.out.println("Scegli uno dei livelli disponibili!");
         }
-        return potenza_max;
+        return nr_elementi;
     }
 
 
-    public static int[][] generaEquilibrio(int nr_elementi, int potenza_max) {
-
-        potenza_max = quantiElementi();
+    public static int[][] generaEquilibrio() {
+        int potenza_max = quantiElementi()*10;
+        int nr_elementi = quantiElementi();
         int[][] matEquilibrio = new int[nr_elementi][nr_elementi];
         int somma = 0;
         int i, j, k;
@@ -106,12 +106,8 @@ public class Equilibrio {
     }
 
 
+
     public void collegamenti(int[][] matEquilibrio, int nrElementi) {
-
-        /* creo la hashmap che è un attributo di ogni elementi, ossia, per ogni elemento elenco la lista di elementi
-        su cui e forte e la potenza con cui e forte (non salvo le potenze negative o nulle);
-         */
-
 
         int i, j;
         for (i = 0; i < nrElementi; i++) {
@@ -126,16 +122,9 @@ public class Equilibrio {
 
 
     public void stampaTabella() {
-             /*for (TypeKey name: example.keySet()) {
-                String key = name.toString();
-                String value = example.get(name).toString();
-                System.out.println(key + " " + value);
-            }*/
-
         for (int i = 0; i < elementi.size(); i++) {
             System.out.print("L'elemento " +  elementi.get(i).getIndice() + "   ");
             elementi.get(i).getDominaSu().forEach((key, value) -> System.out.println("domina sull'elemento " + key + " con potenza:" + value));
-
 
         }
     }
