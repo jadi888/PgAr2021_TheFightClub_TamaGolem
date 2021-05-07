@@ -6,11 +6,15 @@ public class MainTamaGolem {
 
     private static Equilibrio equilibrio = new Equilibrio();
 
+
     public static void main(String[] args) {
 
       //  Equilibrio.generaEquilibrio(5, 10);
        // Scanner input = new Scanner(System.in);
-       equilibrio.stampaValori(10, equilibrio.generaEquilibrio(10,10));
+
+       equilibrio.stampaValori(5, equilibrio.generaEquilibrio(5,10));
+       equilibrio.stampaTabella();
+
 
         /*System.out.println("Benvenuti a TamaGoland");
         System.out.println("Volete iniziare una partita?");

@@ -1,12 +1,27 @@
 package theFightClub_tamaGolem.unibs.it;
 
-import java.text.DecimalFormat;
 import java.util.*;
 
 public class Equilibrio {
 
-    private ArrayList<Elemento> elementi = new ArrayList<>();
+    private static Elemento elemento = new Elemento();
+    private static ArrayList<Elemento> elementi = new ArrayList<>();
+
     private static Random rand = new Random();
+
+    public static void nomiElementi() {
+        TreeMap<Integer, String> nomiElementi = new TreeMap<Integer, String>();
+        nomiElementi.put(1, "Scythe of Vyse");
+        nomiElementi.put(2, "Blade Mail");
+        nomiElementi.put(3, "Soul Booster");
+        nomiElementi.put(4, "Black King Bar");
+        nomiElementi.put(5, "Linke's Sphere");
+        nomiElementi.put(6, "Assault Cuirass");
+        nomiElementi.put(7, "Skull Basher");
+        nomiElementi.put(8, "Ethereal Blade");
+        nomiElementi.put(9, "Monkey King Bar");
+        nomiElementi.put(10, "Divine Rapier");
+    }
 
 
     public static int[][] generaEquilibrio(int nr_elementi, int potenza_max) {
@@ -87,6 +102,45 @@ public class Equilibrio {
                     System.out.print(mat[i][j] + "    ");
                 }
                 System.out.print("\n");
+            }
+        }
+
+
+       public void collegamenti(int[][] matEquilibrio, int nrElementi) {
+
+        /* creo la hashmap che è un attributo di ogni elementi, ossia, per ogni elemento elenco la lista di elementi
+        su cui e forte e la potenza con cui e forte (non salvo le potenze negative o nulle);
+         */
+        HashMap<Integer, Integer> domina = new HashMap<>();
+
+            int i, j;
+            for (i = 0; i < nrElementi; i++) {
+                for(j=0; j < nrElementi; j++) {
+                    elemento.setIndice(i);//assegno l'indice i come attributo all'elemento i;
+                    if(matEquilibrio[i][j]>0) { //se la potenza è positiva, allora la salvo;
+                        domina.put(j, matEquilibrio[i][j]);
+                        elemento.setDominaSu(domina);
+                    }
+                    if(matEquilibrio[i][j]<=0) // se la potenza è negativa o nulla skippo;
+                        continue;
+                }
+                elementi.add(elemento);
+            }
+        }
+
+
+        public void stampaTabella(){
+            /*for (TypeKey name: example.keySet()) {
+                String key = name.toString();
+                String value = example.get(name).toString();
+                System.out.println(key + " " + value);
+            }*/
+
+            for(int i=0; i < elementi.size(); i++){
+                System.out.print(elementi.get(i).getIndice());
+                elementi.get(i).getDominaSu().forEach((key, value) -> System.out.println(key + ":" + value));
+
+
             }
         }
     }
