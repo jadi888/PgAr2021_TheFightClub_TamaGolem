@@ -4,7 +4,7 @@ import java.util.*;
 public class Golem {
 
 
-   private int vitaGolem; //uguale alla potenza massima che può avere un elemento su un altro elemento =  N;
+   private static int vitaGolem = Equilibrio.getNr_elementi();
    private static List<Elemento> pietrePerGolem = new ArrayList<Elemento>(); //ogni tamagolem può ingurgitare fino a P pietre
    int P = (int) Math.ceil(((vitaGolem+1)/3)+1); //è il numero di pietre per Golem;
 
@@ -13,7 +13,7 @@ public class Golem {
           Elemento elemento = new Elemento();
           pietrePerGolem.add(elemento);
        }
-       this.vitaGolem = Equilibrio.quantiElementi(); //va in base al livello di difficoltà della partita scelto dall'utente;
+       //this.vitaGolem = Equilibrio.quantiElementi(); //va in base al livello di difficoltà della partita scelto dall'utente;
    }
 
 
@@ -27,6 +27,7 @@ public class Golem {
    public int getVitaGolem(){
       return vitaGolem;
    }
+
    public int getP(){
       return P;
    }

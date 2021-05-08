@@ -7,28 +7,42 @@ public class Equilibrio {
     private ArrayList<Elemento> elementi = new ArrayList<>();
 
     private static Random rand = new Random();
+    private static int nr_elementi;
 
     public static int quantiElementi() {
         Scanner scan = new Scanner(System.in);
-        int nr_elementi=0;
-        System.out.println("Scegli il livello della partita: \n" + " 1 - EASY\n" + "2 - INTERMEDIO\n" + "3 - HARD\n");
-        int scelta = scan.nextInt();
-        switch (scelta) {
-            case 1: nr_elementi = Math.abs(estraggoIntero(3, 5));
-            break;
-            case 2: nr_elementi = Math.abs(estraggoIntero(6, 8));
-            break;
-            case 3: nr_elementi = Math.abs(estraggoIntero(9, 10));
-            default:
-                System.out.println("Scegli uno dei livelli disponibili!");
-        }
+        do {
+            System.out.println("Scegli il livello della partita: \n" + "1 - EASY\n" + "2 - INTERMEDIO\n" + "3 - HARD\n");
+            int scelta = scan.nextInt();
+            boolean exit = true;
+            switch (scelta) {
+                case 1:
+                    nr_elementi = Math.abs(estraggoIntero(3, 5));
+                    break;
+                case 2:
+                    nr_elementi = Math.abs(estraggoIntero(6, 8));
+                    break;
+                case 3:
+                    nr_elementi = Math.abs(estraggoIntero(9, 10));
+                default: {
+                    exit = false;
+                    System.out.println("Scegli uno dei livelli disponibili!");
+                }
+            }
+        } while(false);
+
+        return nr_elementi;
+    }
+
+    public static int getNr_elementi(){
         return nr_elementi;
     }
 
 
     public static int[][] generaEquilibrio() {
-        int potenza_max = quantiElementi()*10;
+
         int nr_elementi = quantiElementi();
+        int potenza_max = nr_elementi*10; //è anche la vita del golem
         int[][] matEquilibrio = new int[nr_elementi][nr_elementi];
         int somma = 0;
         int i, j, k;
@@ -127,6 +141,21 @@ public class Equilibrio {
             elementi.get(i).getDominaSu().forEach((key, value) -> System.out.println("domina sull'elemento " + key + " con potenza:" + value));
 
         }
+    }
+
+
+    public static void nomiElementi1() {
+        TreeMap<Integer, String> nomiElementi = new TreeMap<Integer, String>();
+        nomiElementi.put(1, "Scythe of Vyse");
+        nomiElementi.put(2, "Blade Mail");
+        nomiElementi.put(3, "Soul Booster");
+        nomiElementi.put(4, "Black King Bar");
+        nomiElementi.put(5, "Linke's Sphere");
+        nomiElementi.put(6, "Assault Cuirass");
+        nomiElementi.put(7, "Skull Basher");
+        nomiElementi.put(8, "Ethereal Blade");
+        nomiElementi.put(9, "Monkey King Bar");
+        nomiElementi.put(10, "Divine Rapier");
     }
 }
 
