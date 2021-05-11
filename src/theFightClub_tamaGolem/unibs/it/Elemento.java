@@ -8,11 +8,6 @@ public class Elemento {
     private int Indice;
     private HashMap<Integer, Integer> dominaSu = new HashMap<>();
 
-    private static ScortaPietre scorta = new ScortaPietre();
-
-    private int pietrePerElemento = (int) Math.ceil(scorta.getS()/Equilibrio.quantiElementi()); //pietre per ciascun elemento;
-
-
     //costruttore
     public Elemento(){
         this.Indice = Indice;

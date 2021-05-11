@@ -33,4 +33,6 @@ public class Golem {
    }
 
 
+   public int attacca(int danno) {
+   }
 }
