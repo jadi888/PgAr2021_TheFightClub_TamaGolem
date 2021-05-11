@@ -3,7 +3,7 @@ package theFightClub_tamaGolem.unibs.it;
 import java.util.TreeMap;
 
 public class ScortaPietre {
-    public static Golem golem = new Golem();
+    private static Golem golem = new Golem();
     private static Player player = new Player();
     int S ;
 

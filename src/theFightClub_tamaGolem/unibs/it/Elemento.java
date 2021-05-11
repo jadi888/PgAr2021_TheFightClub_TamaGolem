@@ -8,6 +8,7 @@ public class Elemento {
     private int Indice;
     private HashMap<Integer, Integer> dominaSu = new HashMap<>();
 
+
     //costruttore
     public Elemento(){
         this.Indice = Indice;
@@ -28,7 +29,9 @@ public class Elemento {
     }
 
     public int getIndice(){
+
         return Indice;
+
     }
 
     public HashMap<Integer, Integer> getDominaSu(){

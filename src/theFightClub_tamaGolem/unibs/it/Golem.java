@@ -4,32 +4,31 @@ import java.util.*;
 public class Golem {
 
 
-   private static int vitaGolem = Equilibrio.getNr_elementi();
-   private static List<Elemento> pietrePerGolem = new ArrayList<Elemento>(); //ogni tamagolem può ingurgitare fino a P pietre
-   int P = (int) Math.ceil(((vitaGolem+1)/3)+1); //è il numero di pietre per Golem;
+   private int vitaGolem ;
+   private static Queue<Elemento> pietrePerGolem = (Queue<Elemento>) new ArrayList<Elemento>(); //ogni tamagolem può ingurgitare fino a P pietre
+   private int p; //è il numero di pietre per Golem;
 
-   public Golem(){
-       for(int i=0; i < P; i++){
-          Elemento elemento = new Elemento();
-          pietrePerGolem.add(elemento);
-       }
-       //this.vitaGolem = Equilibrio.quantiElementi(); //va in base al livello di difficoltà della partita scelto dall'utente;
+   public Golem(int vitaGolem){
+      this.vitaGolem = vitaGolem;
+      this.p = (int) Math.ceil(((vitaGolem+1)/3)+1);
+  }
+
+   public void aggiornoVitaGolem(int danni){
+      vitaGolem = vitaGolem - danni;
+
    }
 
 
-
-   public int aggiornoVitaGolem(int danni){
-      int newVitaGolem = getVitaGolem() - danni;
-      return newVitaGolem;
+   public void addPietra(Elemento pietra){
+      pietrePerGolem.add(pietra);
    }
-
 
    public int getVitaGolem(){
       return vitaGolem;
    }
 
-   public int getP(){
-      return P;
+   public int getP() {
+      return p;
    }
 
 

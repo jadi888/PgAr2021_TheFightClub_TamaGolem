@@ -35,6 +35,7 @@ public class Equilibrio {
     }
 
     public static int getNr_elementi(){
+
         return nr_elementi;
     }
 

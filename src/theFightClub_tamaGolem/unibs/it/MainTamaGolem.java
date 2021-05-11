@@ -32,8 +32,7 @@ public class MainTamaGolem {
             case 2:
                 System.out.println("Giocatore 1 inserisci il tuo nome:");
                 String nome = input.nextLine();
-                Player giocatore1 = new Player();
-                giocatore1.setNomeGiocatore(nome);
+                Player giocatore1 = new Player(nome,);
 
                 System.out.println("Giocatore 2 inserisci il tuo nome: ");
                 String nome1 = input.nextLine();
