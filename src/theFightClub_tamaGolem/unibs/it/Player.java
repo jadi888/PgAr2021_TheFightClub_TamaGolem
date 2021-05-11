@@ -19,7 +19,7 @@ public class Player {
         this.nomeGiocatore = nomeGiocatore;
         evocaGolem();
     }
-
+//hah
 
     //quando il giocatore evoca un Golem, il golem automaticamente viene tolto dall'arraylist golems
     // e viene dimunuito il numero di golems a disposizione del giocatore
