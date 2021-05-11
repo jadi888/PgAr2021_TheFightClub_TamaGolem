@@ -4,17 +4,17 @@ import java.util.ArrayList;
 
 public class Scorta {
 
-    private ArrayList<Elemento> scortaTotale = new ArrayList<>();
-    int s;
+    public static int[] pietrePerElemento; //gli indici corrispondono agli elementi, e per ogni elemento restano tot pietre
 
-    public Scorta(Golem golem, Player giocatore){
-        s = ((2*golem.getP()*giocatore.getG())/golem.getVitaGolem())*golem.getVitaGolem();
+    public static void inizializzoScorte() {
+        int totElementi = Equilibrio.nr_elementi;
+        pietrePerElemento = new int[totElementi];
+        for (int i = 0; i < totElementi; i++){
+            pietrePerElemento[i] = Equilibrio.PxElemento; //pietre x elemento;
+        }
     }
 
-    public void addPietra(Elemento pietra)  {
 
-        scortaTotale.add(pietra);
-    }
 
 
 }

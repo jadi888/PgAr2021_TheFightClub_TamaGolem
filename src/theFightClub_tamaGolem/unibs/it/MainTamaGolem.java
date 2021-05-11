@@ -24,23 +24,12 @@ public class MainTamaGolem {
 
         int scelta = input.nextInt();
         switch (scelta){
-                    //chiedo all'utente il livello di difficoltà della partita: EASY, MEDIUM, HARD
+
             case 1:
-                var x = Equilibrio.quantiElementi();
-                System.out.println("-");
+                Equilibrio.quantiElementi();
                 System.out.println("L'equilibrio dell'Universo è stato generato \n" + " Che vinca il più forte!");
-            case 2:
-                System.out.println("Giocatore 1 inserisci il tuo nome:");
-                String nome = input.nextLine();
-                Player giocatore1 = new Player(nome,);
+            //case 2:
 
-                System.out.println("Giocatore 2 inserisci il tuo nome: ");
-                String nome1 = input.nextLine();
-                Player giocatore2 = new Player();
-                giocatore2.setNomeGiocatore(nome1);
-
-                if(true)giocatore1.evocaGolem();
-                if(true)giocatore2.evocaGolem();
 
 
 

@@ -4,34 +4,37 @@ import java.util.*;
 public class Golem {
 
 
-   private int vitaGolem ;
-   private static Queue<Elemento> pietrePerGolem = (Queue<Elemento>) new ArrayList<Elemento>(); //ogni tamagolem può ingurgitare fino a P pietre
-   private int p; //è il numero di pietre per Golem;
 
-   public Golem(int vitaGolem){
-      this.vitaGolem = vitaGolem;
-      this.p = (int) Math.ceil(((vitaGolem+1)/3)+1);
+   private int vitaGolem;
+   private static ArrayList<Elemento> pietrePerGolem =  new ArrayList<Elemento>();
+   private int indice=0; //indice della queue quando ciclo sulle pietre;
+    private Object Elemento;
+
+
+    public Golem(){
+      this.vitaGolem = Equilibrio.vitaGolem;
+      int pietre = Equilibrio.P; //pietre per golem
+
+      System.out.printf("Il Golem evocato può contenere fino a %d pietre degli elementi!", pietre);
+
+      for(int i=0; i < pietre; i++){
+          System.out.printf("Scegli una delle pietre disponibili da caricare in posizione ", i+1);
+          pietrePerGolem.add(Equilibrio.caricaPietra()); //ho aggiunto un elemento alla queue
+      }
   }
 
-   public void aggiornoVitaGolem(int danni){
-      vitaGolem = vitaGolem - danni;
-
-   }
-
-
-   public void addPietra(Elemento pietra){
-      pietrePerGolem.add(pietra);
-   }
-
-   public int getVitaGolem(){
+   public int aggiornaVitaGolem(int danni){
+      vitaGolem-= danni;
       return vitaGolem;
    }
 
-   public int getP() {
-      return p;
+   public Elemento lanciaPietra(){
+       Elemento pietra = pietrePerGolem.get(indice);
+       if(indice<Equilibrio.P-1) indice++;
+       else indice=0;
+       return (theFightClub_tamaGolem.unibs.it.Elemento) Elemento;
    }
+   
 
 
-   public int attacca(int danno) {
-   }
 }
