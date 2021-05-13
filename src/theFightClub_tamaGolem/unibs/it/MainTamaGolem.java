@@ -2,41 +2,39 @@ package theFightClub_tamaGolem.unibs.it;
 
 import java.util.Scanner;
 
+/**
+ * @author jadimary
+ */
+
 public class MainTamaGolem {
 
     private static Equilibrio equilibrio = new Equilibrio();
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
-       Scanner input = new Scanner(System.in);
-
-        //var x = Equilibrio.generaEquilibrio(5,10);
-
-       /*equilibrio.stampaValori(5, x);
-       equilibrio.collegamenti(x, 5);
-       equilibrio.stampaTabella();*/
-
+        Scanner input = new Scanner(System.in);
+        int scelta;
 
         System.out.println("BENVENUTI A TAMAGOLAND");
-        System.out.println("Volete iniziare una partita?");
-        System.out.println("(Premi 1 per iniziare una partita)");
+        do{
+            System.out.println("Volete iniziare una partita (premi 1 se SI e 0 per no per uscire dal gioco)");
+            System.out.println();
 
-        int scelta = input.nextInt();
-        switch (scelta){
+        scelta = input.nextInt();
 
+        switch (scelta) {
+            case 0:
+                System.exit(0);
+                break;
             case 1:
-                Equilibrio.quantiElementi();
-                System.out.println("L'equilibrio dell'Universo è stato generato \n" + " Che vinca il più forte!");
-            //case 2:
-
-
-
-
-
-           // case 10: equilibrio.ResetUniverso();
-        }
-
+                new Battaglia();
+                break;
+            default:
+                System.out.println("Questo Universo ha delle regole" + "\n" + "Premi uno dei comandi messi a disposizione!");
+                continue;
+             }
+        }while(scelta!=0 && scelta!=1);
 
     }
 }

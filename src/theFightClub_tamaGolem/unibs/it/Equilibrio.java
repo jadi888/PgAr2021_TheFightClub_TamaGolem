@@ -3,13 +3,28 @@ package theFightClub_tamaGolem.unibs.it;
 import javax.swing.*;
 import java.util.*;
 
+/**
+ * @author Souhaila Mouak
+ */
+
 public class Equilibrio {
-    private static ArrayList<Elemento> elementi = new ArrayList<>();
+
+    /**
+     * @param elementi in base alla difficoltà della partita conterrà solo alcune pietre,
+     * ad esempio le pietre Monkey King Bar e Divine Rapier non compariranno mai in una partita EASY o MEDIUM;
+     */
+    public static ArrayList<Elemento> elementi = new ArrayList<>();
     public static int[][] matEquilibrio;
 
     private static Random rand = new Random();
 
-
+    /**
+     * @param vitaGolem per rendere il gioco più interessante e duraturo sarà uguale al numero di elementi * 10;
+     * @param P numero di pietre che un golem può ingurgitare;
+     * @param G numero di Golem che i giocatori hanno a disposizione all'inizio della partita
+     * @param S numero di pietre totali disponibili nella scorta per entrambi i giocatori;
+     * @param PxElemento numero di pietre per elemento;
+     */
     public static int nr_elementi;
     public static int vitaGolem; //sarà uguale al numeri di elementi * 10, per rendere la partita più interessante ;)
     public static int G;//golem per giocatore
@@ -20,10 +35,10 @@ public class Equilibrio {
 
     public static void quantiElementi() {
         Scanner scan = new Scanner(System.in);
+        int scelta;
         do {
             System.out.println("Scegli il livello della partita: \n" + "1 - EASY\n" + "2 - INTERMEDIO\n" + "3 - HARD\n");
-            int scelta = scan.nextInt();
-            boolean exit = true;
+            scelta = scan.nextInt();
             switch (scelta) {
                 case 1:
                     nr_elementi = Math.abs(estraggoIntero(3, 5));
@@ -34,25 +49,27 @@ public class Equilibrio {
                 case 3:
                     nr_elementi = Math.abs(estraggoIntero(9, 10));
                 default: {
-                    exit = false;
                     System.out.println("Scegli uno dei livelli disponibili!");
+                    continue;
                 }
             }
-        } while(false);
+        } while(scelta!=1 && scelta!=2 && scelta!=3);
+
 
         vitaGolem = nr_elementi*10;
-        P = (int) Math.ceil(((vitaGolem+1)/3)+1); //pietre per golem
-        G = (int) Math.ceil((vitaGolem-1)*(vitaGolem-2))/(2*P); //golem per giocatore
-        S = (int) Math.ceil(((2*P*G)/(vitaGolem))*vitaGolem); //scorta pietre comune ai due giocatori;
-        PxElemento = (int) Math.ceil((2*P*G)/(vitaGolem));
+        P = (int) Math.ceil(((nr_elementi+1)/3)+1);
+        G = (int) Math.ceil((nr_elementi-1)*(nr_elementi-2))/(2*P);
+        S = (int) Math.ceil(((2*P*G)/(nr_elementi))*nr_elementi);
+        PxElemento = (int) Math.ceil((2*P*G)/(nr_elementi));
 
     }
 
 
 
     public static void generaEquilibrio() {
-
-
+        /**
+         * @param potenza_max coincide con la vita del golem ed è il massimo danno che un elemento può fare un su altro elemento;
+         */
         int potenza_max = nr_elementi*10; //è anche la vita del golem
         matEquilibrio = new int[nr_elementi][nr_elementi];
         int somma = 0;
@@ -60,7 +77,6 @@ public class Equilibrio {
 
         //uso restart per rigenerare la matrice ogni volta giusta
         boolean restart = false;
-
         do {
             restart = false;
             for (i = 0; i < nr_elementi; i++) {
@@ -131,7 +147,7 @@ public class Equilibrio {
 
 
 
-    public void collegamenti() {
+    public static void collegamenti() {
         int i, j, danno;
         for (i = 0; i < nr_elementi; i++) {
             Elemento elemento =  new Elemento();
@@ -145,27 +161,31 @@ public class Equilibrio {
     }
 
     public int getDanno(int i, int j){
-        return matEquilibrio[i-1][j-1]; //ritorna il danno causato o subito di un elemento;
+        return matEquilibrio[i][j]; //ritorna il danno causato o subito di un elemento;
     }
 
 
 
     public void stampaTabella() {
         for (int i = 0; i < elementi.size(); i++) {
+            System.out.println();
             System.out.print("L'elemento " +  elementi.get(i).getIndice() + "   ");
             elementi.get(i).getDominaSu().forEach((key, value) -> System.out.println("domina sull'elemento " + key + " con potenza:" + value));
         }
     }
 
 
-/*Farò scegliere al giocatore l'elemento da caricare del golem dall'elenco di elementi gia' disponibili.
-Man mano che carica un elemento, dovrò diminuire la quantità dispoinibili nella scorta di quel determinato
-elemento;
+/**
+ * Il giocatore sceglie l'elemento da caricare nel golem dall'elenco di elementi gia' disponibili <pietrePerGolem></>
+ * Man mano che carica un elemento, dovrò diminuire la quantità disponibili nella scorta <pietrePerElemento></>
+ * di quel determinato elemento;
  */
     public static Elemento caricaPietra(){
         Scanner scan = new Scanner(System.in);
-        Elemento pietra;
+        Elemento pietra =  new Elemento();
+        collegamenti();
         int scelta;
+
         TreeMap<Integer, String> nomiElementi = new TreeMap<Integer, String>();
         nomiElementi.put(1, "Scythe of Vyse");
         nomiElementi.put(2, "Blade Mail");
@@ -178,25 +198,56 @@ elemento;
         nomiElementi.put(9, "Monkey King Bar");
         nomiElementi.put(10, "Divine Rapier");
 
+        System.out.println();
         //gli mostro l'elenco delle pietre disponibili in base al nr di elementi nella partita
-        System.out.printf("Premi un numero da 1 a %d per aggiungere uno degli elementi: \n");
-        for(int i=0; i < nr_elementi; i++){
-            System.out.printf("%d per aggiungere %s\n", i+1, nomiElementi.get(i));
+        System.out.printf("Premi un numero da 1 a %d per aggiungere uno degli elementi: \n", nr_elementi);
+        for(int i=1; i <= nr_elementi; i++){
+            System.out.printf("%d per aggiungere %s\n", i, nomiElementi.get(i));
         }
 
+
         //ovviamente il numero che sceglie deve essere compreso tra 1 e il numero totale di elementi;
-        do {
+        do{
             scelta = scan.nextInt();
-            pietra = elementi.get(scelta-1);
-        }while((scelta < 1) || !(scelta > nr_elementi) || Scorta.pietrePerElemento[scelta-1] == 0);
-        Scorta.pietrePerElemento[scelta-1]--;
+            if(scelta >=1 && scelta<=nr_elementi){
+                if(Scorta.pietrePerElemento[scelta-1]!=0){
+                    pietra = elementi.get(scelta - 1);
+                    return pietra;
+                }
+                else System.out.printf("Le pietre dell'elemento %s nella scorta sono finite, scegli un'altro", nomiElementi.get(scelta));
+            }
+            else {
+                System.out.println("***  Seleziona una tra le pietre disponibili!  ***");
+            }
+            //controllo se nella scorta per quel determinato elemento ci sono ancora pietre
+        }while( scelta<=1 || scelta>=nr_elementi);
+
+        Scorta.pietrePerElemento[scelta-1]--; //diminuisco il numero di pietre disponibili per un determinato elemento;
 
         System.out.printf("Hai scelto la pietra %s \n", nomiElementi.get(scelta));
         System.out.printf("Nella scorta restano ancora %d pietre dell'elemeneto %s\n", Scorta.pietrePerElemento[scelta-1], nomiElementi.get(scelta));
 
-        return pietra; //ritorno la pietra che verrà aggiunta alla queue di pietre del golem.
+        /**
+         * @return pietra è la pietra che verrà aggiunta alla arraylist <pietreperGolem></pietreperGolem>
+         */
+        return pietra;
     }
 
+
+    public static String getNomeElemento(int indiceElemento){
+        if(indiceElemento==1) return "Scythe of Vyse";
+        else if(indiceElemento==2) return "Blade Mail";
+        else if(indiceElemento==3) return "Soul Booster";
+        else if(indiceElemento==4) return "Black King Bar";
+        else if(indiceElemento==5) return "Linke's Sphere";
+        else if(indiceElemento==6) return "Assault Cuirass";
+        else if(indiceElemento==7) return "Skull Basher";
+        else if(indiceElemento==8) return "Ethereal Blade";
+        else if(indiceElemento==9) return "Monkey King Bar";
+        else if(indiceElemento==10) return "Divine Rapier";
+
+        return null;
+    }
 
 
 

@@ -2,9 +2,18 @@ package theFightClub_tamaGolem.unibs.it;
 
 import java.util.ArrayList;
 
+/**
+ * @author jadimary
+ */
+
 public class Scorta {
 
-    public static int[] pietrePerElemento; //gli indici corrispondono agli elementi, e per ogni elemento restano tot pietre
+    /**
+     * @param pietrePerElemento la dimensione del vettore corrisponde al numero di elementi della partita e e il valore
+     *                          all'indice i corrisponde al numero di pietre nella scorta per quel determinato elemento;
+     */
+
+    public static int[] pietrePerElemento;
 
     public static void inizializzoScorte() {
         int totElementi = Equilibrio.nr_elementi;
@@ -13,7 +22,6 @@ public class Scorta {
             pietrePerElemento[i] = Equilibrio.PxElemento; //pietre x elemento;
         }
     }
-
 
 
 
