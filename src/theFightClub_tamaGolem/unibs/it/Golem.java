@@ -7,14 +7,14 @@ import java.util.*;
 
 public class Golem {
 
-    /**
-     * Attributi del GOLEM:
-     * @param pietrePerGolem contiene le pietre che il golem potrà usare nella battaglia;
-     *
-     */
+
+    // Attributi del GOLEM:
+    // @param pietrePerGolem contiene le pietre che il golem potrà usare nella battaglia;
+
    private int vitaGolem;
    private ArrayList<Elemento> pietrePerGolem =  new ArrayList<Elemento>();
    private int indice=0; //indice della queue quando ciclo sulle pietre;
+
 
 
     public Golem(){

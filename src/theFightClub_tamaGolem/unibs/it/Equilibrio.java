@@ -35,11 +35,21 @@ public class Equilibrio {
 
     public static void quantiElementi() {
         Scanner scan = new Scanner(System.in);
-        int scelta;
+        String scelta;
         do {
-            System.out.println("Scegli il livello della partita: \n" + "1 - EASY\n" + "2 - INTERMEDIO\n" + "3 - HARD\n");
-            scelta = scan.nextInt();
-            switch (scelta) {
+            while (true) {
+                System.out.println("Scegli il livello della partita: \n" + "1 - EASY\n" + "2 - INTERMEDIO\n" + "3 - HARD\n");
+                scelta = scan.next();
+                int intInputValue = 0;
+                try {
+                    intInputValue = Integer.parseInt(scelta);
+                    break;
+                } catch (NumberFormatException ne) {
+                    System.out.println("SCEGLI UNO DEI LIVELLI DISPONIBILI");
+                }
+            }
+
+            switch (Integer.parseInt(scelta)) {
                 case 1:
                     nr_elementi = Math.abs(estraggoIntero(3, 5));
                     break;
@@ -53,23 +63,23 @@ public class Equilibrio {
                     continue;
                 }
             }
-        } while(scelta!=1 && scelta!=2 && scelta!=3);
+        } while(Integer.parseInt(scelta)!=1 && Integer.parseInt(scelta)!=2 && Integer.parseInt(scelta)!=3);
 
 
         vitaGolem = nr_elementi*10;
-        P = (int) Math.ceil(((nr_elementi+1)/3)+1);
+        P = (int) Math.ceil(((nr_elementi+1)/3.0)+1);
         G = (int) Math.ceil((nr_elementi-1)*(nr_elementi-2))/(2*P);
-        S = (int) Math.ceil(((2*P*G)/(nr_elementi))*nr_elementi);
-        PxElemento = (int) Math.ceil((2*P*G)/(nr_elementi));
+        S = (int) Math.ceil(((2*P*G)/(double)(nr_elementi))*nr_elementi);
+        PxElemento = (int) Math.ceil((2*P*G)/(double)(nr_elementi));
 
     }
 
 
 
     public static void generaEquilibrio() {
-        /**
-         * @param potenza_max coincide con la vita del golem ed è il massimo danno che un elemento può fare un su altro elemento;
-         */
+
+         // potenza_max coincide con la vita del golem ed è il massimo danno che un elemento può fare un su altro elemento;
+
         int potenza_max = nr_elementi*10; //è anche la vita del golem
         matEquilibrio = new int[nr_elementi][nr_elementi];
         int somma = 0;
@@ -184,7 +194,8 @@ public class Equilibrio {
         Scanner scan = new Scanner(System.in);
         Elemento pietra =  new Elemento();
         collegamenti();
-        int scelta;
+        String scelta;
+
 
         TreeMap<Integer, String> nomiElementi = new TreeMap<Integer, String>();
         nomiElementi.put(1, "Scythe of Vyse");
@@ -208,28 +219,38 @@ public class Equilibrio {
 
         //ovviamente il numero che sceglie deve essere compreso tra 1 e il numero totale di elementi;
         do{
-            scelta = scan.nextInt();
-            if(scelta >=1 && scelta<=nr_elementi){
-                if(Scorta.pietrePerElemento[scelta-1]!=0){
-                    pietra = elementi.get(scelta - 1);
+            while (true) {
+                scelta = scan.next();
+                int intInputValue = 0;
+                try {
+                    intInputValue = Integer.parseInt(scelta);
+                    break;
+                } catch (NumberFormatException ne) {
+                    System.out.println("Deve inserire una cifra corrispondente a un elemento!");
+                }
+            }
+            int j=0;
+            if(Integer.parseInt(scelta) >=1 &&Integer.parseInt(scelta)<=nr_elementi){
+                if(Scorta.pietrePerElemento[Integer.parseInt(scelta)-1]!=0){
+                    pietra = elementi.get(Integer.parseInt(scelta) - 1);
                     return pietra;
                 }
-                else System.out.printf("Le pietre dell'elemento %s nella scorta sono finite, scegli un'altro", nomiElementi.get(scelta));
+                else System.out.printf("\nLe pietre dell'elemento %s nella scorta sono finite, scegli un'altro\n", nomiElementi.get(scelta));
             }
             else {
                 System.out.println("***  Seleziona una tra le pietre disponibili!  ***");
             }
             //controllo se nella scorta per quel determinato elemento ci sono ancora pietre
-        }while( scelta<=1 || scelta>=nr_elementi);
+        }while( Integer.parseInt(scelta)<=1 || Integer.parseInt(scelta)>=nr_elementi);
 
-        Scorta.pietrePerElemento[scelta-1]--; //diminuisco il numero di pietre disponibili per un determinato elemento;
+        Scorta.pietrePerElemento[Integer.parseInt(scelta)-1]--; //diminuisco il numero di pietre disponibili per un determinato elemento;
 
         System.out.printf("Hai scelto la pietra %s \n", nomiElementi.get(scelta));
-        System.out.printf("Nella scorta restano ancora %d pietre dell'elemeneto %s\n", Scorta.pietrePerElemento[scelta-1], nomiElementi.get(scelta));
+        System.out.printf("Nella scorta restano ancora %d pietre dell'elemeneto %s\n", Scorta.pietrePerElemento[Integer.parseInt(scelta)-1], nomiElementi.get(scelta));
 
-        /**
-         * @return pietra è la pietra che verrà aggiunta alla arraylist <pietreperGolem></pietreperGolem>
-         */
+
+        // è la pietra che verrà aggiunta alla arraylist <pietreperGolem></pietreperGolem>
+
         return pietra;
     }
 
@@ -249,6 +270,14 @@ public class Equilibrio {
         return null;
     }
 
+    public void stampaMatrice() {
+        for (int i = 0; i < nr_elementi; i++) {
+            for (int j = 0; j < nr_elementi; j++) {
+                System.out.printf("%s    ", matEquilibrio[i][j]);
+            }
+            System.out.println();
+        }
+    }
 
 
 }

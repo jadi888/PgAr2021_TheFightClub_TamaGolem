@@ -9,7 +9,7 @@ import java.util.TreeMap;
 
 public class Elemento {
 
-    /**
+    /*
      * @param Indice attributo dell'elemento;
      * @param dominaSu attributo dell'elemento: contiene la combinazione dell'elemento su cui è forte o debole in base alla value
      *                 se positiva, significa che è forte su quell'elemento,

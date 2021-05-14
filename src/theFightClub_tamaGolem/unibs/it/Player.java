@@ -4,15 +4,17 @@ import java.io.*;
 import java.util.*;
   public class Player {
 
-      /**
-       * Attributi del Giocatore:
-       * @param nomePlayer: nome del giocatore;
-       * @param golemCorrente: il golem che attualmente sta lottando;
-       * @param G: numero di golem che ha a disposizione;
-       */
+
+      // Attributi del Giocatore:
+      // @param nomePlayer: nome del giocatore;
+      // @param golemCorrente: il golem che attualmente sta lottando;
+      // @param G: numero di golem che ha a disposizione;
+
     private String nomePlayer; // nome del giocatore
     private Golem golemCorrente;
     private int G;
+
+
 
 
     public Player(String nomePlayer) throws InterruptedException {
@@ -29,11 +31,11 @@ import java.util.*;
         if(G>0){
             System.out.println("Il tuo golem è in arrivo!");
             Thread.sleep(1000);
-            System.out.print(". ");
+            System.out.print(".  ");
             Thread.sleep(1000);
-            System.out.print(" .  ");
+            System.out.print("  .  ");
             Thread.sleep(1000);
-            System.out.println(" .  ");
+            System.out.println("  .  ");
             Thread.sleep(500);
             System.out.printf("%s il tuo GOLEM è stato evocato\n", nomePlayer);
             golemCorrente = new Golem();
